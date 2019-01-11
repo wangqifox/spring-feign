@@ -1,4 +1,4 @@
-package love.wangqi;
+package love.wangqi.feign;
 
 import org.springframework.context.annotation.Import;
 

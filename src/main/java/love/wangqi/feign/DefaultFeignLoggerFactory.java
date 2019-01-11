@@ -1,4 +1,4 @@
-package love.wangqi;
+package love.wangqi.feign;
 
 import feign.Logger;
 import feign.slf4j.Slf4jLogger;

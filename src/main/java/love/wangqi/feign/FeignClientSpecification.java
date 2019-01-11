@@ -1,4 +1,4 @@
-package love.wangqi;
+package love.wangqi.feign;
 
 import java.util.Arrays;
 import java.util.Objects;

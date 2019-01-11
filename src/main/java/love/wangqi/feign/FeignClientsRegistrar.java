@@ -1,4 +1,4 @@
-package love.wangqi;
+package love.wangqi.feign;
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -88,6 +88,7 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         definition.addPropertyValue("path", getPath(attributes));
         String name = getName(attributes);
         definition.addPropertyValue("name", name);
+        definition.addPropertyValue("type", className);
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         String alias = name + "FeignClient";

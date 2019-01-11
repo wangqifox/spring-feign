@@ -1,4 +1,4 @@
-package love.wangqi;
+package love.wangqi.feign;
 
 import feign.*;
 import feign.codec.Decoder;

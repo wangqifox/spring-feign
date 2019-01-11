@@ -3,6 +3,7 @@ package love.wangqi.test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: wangqi
@@ -15,7 +16,7 @@ public class Main {
 //        ArticleService articleService = annotationConfigApplicationContext.getBean(ArticleService.class);
 //        articleService.test();
         ArticleClient articleClient = annotationConfigApplicationContext.getBean(ArticleClient.class);
-        List<CommentDTO> comments = articleClient.getComments("222131", "123", null, null);
+        Map comments = articleClient.getComments("222131", "123", null, null);
         System.out.println(comments);
 
     }
