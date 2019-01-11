@@ -11,5 +11,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FeignClient {
-
+    String name() default "";
+    String qualifier() default "";
+    String url() default "";
+    String path() default "";
+    boolean primary() default true;
 }

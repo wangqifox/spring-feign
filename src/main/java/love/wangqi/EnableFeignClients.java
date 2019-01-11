@@ -14,4 +14,13 @@ import java.lang.annotation.*;
 @Documented
 @Import(FeignClientsRegistrar.class)
 public @interface EnableFeignClients {
+    String[] value() default {};
+
+    String[] basePackages() default {};
+
+    Class<?>[] basePackageClasses() default {};
+
+    Class<?>[] defaultConfiguration() default {};
+
+    Class<?>[] clients() default {};
 }
