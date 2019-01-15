@@ -1,8 +1,7 @@
-package love.wangqi.test;
+package love.wangqi;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,8 +12,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
-//        ArticleService articleService = annotationConfigApplicationContext.getBean(ArticleService.class);
-//        articleService.test();
         ArticleClient articleClient = annotationConfigApplicationContext.getBean(ArticleClient.class);
         Map comments = articleClient.getComments("222131", "123", null, null);
         System.out.println(comments);

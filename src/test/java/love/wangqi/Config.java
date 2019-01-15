@@ -1,4 +1,4 @@
-package love.wangqi.test;
+package love.wangqi;
 
 import love.wangqi.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;

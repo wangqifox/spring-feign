@@ -1,4 +1,4 @@
-package love.wangqi.test;
+package love.wangqi;
 
 import love.wangqi.feign.FeignClient;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import java.util.List;
 import java.util.Map;
 
 /**

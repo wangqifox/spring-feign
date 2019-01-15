@@ -1,4 +1,4 @@
-package love.wangqi.test;
+package love.wangqi;
 
 /**
  * @author: wangqi
