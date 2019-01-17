@@ -1,4 +1,4 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -21,6 +21,7 @@ class FeignClientSpecification implements NamedContextFactory.Specification {
         this.configuration = configuration;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -29,6 +30,7 @@ class FeignClientSpecification implements NamedContextFactory.Specification {
         this.name = name;
     }
 
+    @Override
     public Class<?>[] getConfiguration() {
         return configuration;
     }
@@ -39,8 +41,12 @@ class FeignClientSpecification implements NamedContextFactory.Specification {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         FeignClientSpecification that = (FeignClientSpecification) o;
         return Objects.equals(name, that.name) &&
                 Arrays.equals(configuration, that.configuration);

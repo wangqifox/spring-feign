@@ -1,7 +1,7 @@
-package love.wangqi.feign.annotation;
+package io.github.wangqifox.feign.annotation;
 
 import feign.MethodMetadata;
-import love.wangqi.feign.support.AnnotatedParameterProcessor;
+import io.github.wangqifox.feign.support.AnnotatedParameterProcessor;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.lang.annotation.Annotation;

@@ -1,6 +1,6 @@
 package love.wangqi;
 
-import love.wangqi.feign.FeignClient;
+import io.github.wangqifox.feign.FeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @description:
  * @date: Created in 2019-01-08 09:54
  */
-@FeignClient(name = "articleClient" , url = "http://127.0.0.1:8083")
+@FeignClient(url = "http://127.0.0.1:8083")
 public interface ArticleClient {
     Logger logger = LoggerFactory.getLogger(ArticleClient.class);
 

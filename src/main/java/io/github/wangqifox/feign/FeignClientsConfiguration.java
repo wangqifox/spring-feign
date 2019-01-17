@@ -1,15 +1,11 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import feign.Contract;
 import feign.Feign;
 import feign.Logger;
 import feign.Retryer;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
-import love.wangqi.feign.support.AnnotatedParameterProcessor;
-import love.wangqi.feign.support.SpringMvcContract;
+import io.github.wangqifox.feign.support.AnnotatedParameterProcessor;
+import io.github.wangqifox.feign.support.SpringMvcContract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,15 +33,15 @@ public class FeignClientsConfiguration {
     @Autowired(required = false)
     private Logger logger;
 
-    @Bean
-    public Decoder feignDecoder() {
-        return new JacksonDecoder();
-    }
-
-    @Bean
-    public Encoder feignEncoder() {
-        return new JacksonEncoder();
-    }
+//    @Bean
+//    public Decoder feignDecoder() {
+//        return new JacksonDecoder();
+//    }
+//
+//    @Bean
+//    public Encoder feignEncoder() {
+//        return new JacksonEncoder();
+//    }
 
     @Bean
     public Contract feignContract(ConversionService feignConversionService) {

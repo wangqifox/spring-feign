@@ -1,4 +1,4 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import feign.*;
 import feign.codec.Decoder;

@@ -1,12 +1,12 @@
-package love.wangqi.feign.support;
+package io.github.wangqifox.feign.support;
 
 import feign.Contract;
 import feign.Feign;
 import feign.MethodMetadata;
 import feign.Param;
-import love.wangqi.feign.annotation.PathVariableParameterProcessor;
-import love.wangqi.feign.annotation.RequestHeaderParameterProcessor;
-import love.wangqi.feign.annotation.RequestParamParameterProcessor;
+import io.github.wangqifox.feign.annotation.PathVariableParameterProcessor;
+import io.github.wangqifox.feign.annotation.RequestHeaderParameterProcessor;
+import io.github.wangqifox.feign.annotation.RequestParamParameterProcessor;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.DefaultParameterNameDiscoverer;

@@ -1,4 +1,4 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -86,65 +86,23 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         validate(attributes);
         definition.addPropertyValue("url", getUrl(attributes));
         definition.addPropertyValue("path", getPath(attributes));
-        String name = getName(attributes);
-        definition.addPropertyValue("name", name);
+        definition.addPropertyValue("name", className);
         definition.addPropertyValue("type", className);
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
-        String alias = name + "FeignClient";
         AbstractBeanDefinition beanDefinition = definition.getBeanDefinition();
 
         boolean primary = (Boolean) attributes.get("primary");
 
         beanDefinition.setPrimary(primary);
 
-        String qualifier = getQualifier(attributes);
-        if (StringUtils.hasText(qualifier)) {
-            alias = qualifier;
-        }
-
-        BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className,
-                new String[] { alias });
+        BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className, null);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
 
     }
 
     private void validate(Map<String, Object> attributes) {
 
-    }
-
-    String getName(Map<String, Object> attributes) {
-        String name = (String) attributes.get("serviceId");
-        if (!StringUtils.hasText(name)) {
-            name = (String) attributes.get("name");
-        }
-        if (!StringUtils.hasText(name)) {
-            name = (String) attributes.get("value");
-        }
-        name = resolve(name);
-        return getName(name);
-    }
-
-    static String getName(String name) {
-        if (!StringUtils.hasText(name)) {
-            return "";
-        }
-
-        String host = null;
-        try {
-            String url;
-            if (!name.startsWith("http://") && !name.startsWith("https://")) {
-                url = "http://" + name;
-            } else {
-                url = name;
-            }
-            host = new URI(url).getHost();
-
-        }
-        catch (URISyntaxException e) {
-        }
-        Assert.state(host != null, "Service id not legal hostname (" + name + ")");
-        return name;
     }
 
     private String resolve(String value) {
@@ -156,6 +114,9 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
 
     private String getUrl(Map<String, Object> attributes) {
         String url = resolve((String) attributes.get("url"));
+        if ("".equals(url)) {
+            url = environment.getProperty("comment.url");
+        }
         return getUrl(url);
     }
 
@@ -190,17 +151,6 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
             }
         }
         return path;
-    }
-
-    private String getQualifier(Map<String, Object> client) {
-        if (client == null) {
-            return null;
-        }
-        String qualifier = (String) client.get("qualifier");
-        if (StringUtils.hasText(qualifier)) {
-            return qualifier;
-        }
-        return null;
     }
 
     protected ClassPathScanningCandidateComponentProvider getScanner() {

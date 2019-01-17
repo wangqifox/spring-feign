@@ -1,6 +1,4 @@
-package love.wangqi.feign;
-
-import org.springframework.core.annotation.AliasFor;
+package io.github.wangqifox.feign;
 
 import java.lang.annotation.*;
 
@@ -13,17 +11,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FeignClient {
-    @AliasFor("name")
-    String value() default "";
-
-    @AliasFor("value")
-    String name() default "";
-
-    String qualifier() default "";
-
     String url() default "";
 
     String path() default "";
 
     boolean primary() default true;
+
+    Class<?>[] configuration() default {};
 }

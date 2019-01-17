@@ -1,4 +1,4 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactoryUtils;

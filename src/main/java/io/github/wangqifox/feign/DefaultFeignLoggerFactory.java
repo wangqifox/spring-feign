@@ -1,4 +1,4 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import feign.Logger;
 import feign.slf4j.Slf4jLogger;

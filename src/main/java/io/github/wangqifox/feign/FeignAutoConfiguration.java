@@ -1,7 +1,8 @@
-package love.wangqi.feign;
+package io.github.wangqifox.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  * @date: Created in 2019-01-11 19:03
  */
 @Configuration
+@ComponentScan("io.github.wangqifox")
 public class FeignAutoConfiguration {
     @Autowired(required = false)
     private List<FeignClientSpecification> configurations = new ArrayList<>();

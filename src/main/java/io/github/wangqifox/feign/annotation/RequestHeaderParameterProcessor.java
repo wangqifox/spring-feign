@@ -1,8 +1,8 @@
-package love.wangqi.feign.annotation;
+package io.github.wangqifox.feign.annotation;
 
 import feign.MethodMetadata;
-import love.wangqi.feign.support.AnnotatedParameterProcessor;
-import org.springframework.web.bind.annotation.RequestParam;
+import io.github.wangqifox.feign.support.AnnotatedParameterProcessor;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -17,9 +17,9 @@ import static feign.Util.emptyToNull;
  * @description:
  * @date: Created in 2019-01-11 19:30
  */
-public class RequestParamParameterProcessor implements AnnotatedParameterProcessor {
+public class RequestHeaderParameterProcessor implements AnnotatedParameterProcessor {
 
-    private static final Class<RequestParam> ANNOTATION = RequestParam.class;
+    private static final Class<RequestHeader> ANNOTATION = RequestHeader.class;
 
     @Override
     public Class<? extends Annotation> getAnnotationType() {
@@ -33,22 +33,19 @@ public class RequestParamParameterProcessor implements AnnotatedParameterProcess
         MethodMetadata data = context.getMethodMetadata();
 
         if (Map.class.isAssignableFrom(parameterType)) {
-            checkState(data.queryMapIndex() == null, "Query map can only be present once.");
-            data.queryMapIndex(parameterIndex);
+            checkState(data.headerMapIndex() == null, "Header map can only be present once.");
+            data.headerMapIndex(parameterIndex);
 
             return true;
         }
 
-        RequestParam requestParam = ANNOTATION.cast(annotation);
-        String name = requestParam.value();
+        String name = ANNOTATION.cast(annotation).value();
         checkState(emptyToNull(name) != null,
-                "RequestParam.value() was empty on parameter %s",
-                parameterIndex);
+                "RequestHeader.value() was empty on parameter %s", parameterIndex);
         context.setParameterName(name);
 
-        Collection<String> query = context.setTemplateParameter(name,
-                data.template().queries().get(name));
-        data.template().query(name, query);
+        Collection<String> header = context.setTemplateParameter(name, data.template().headers().get(name));
+        data.template().header(name, header);
         return true;
     }
 }

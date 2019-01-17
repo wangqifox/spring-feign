@@ -1,4 +1,4 @@
-package love.wangqi.feign.support;
+package io.github.wangqifox.feign.support;
 
 import feign.MethodMetadata;
 
