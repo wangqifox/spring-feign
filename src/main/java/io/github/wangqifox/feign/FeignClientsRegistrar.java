@@ -20,8 +20,6 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Map;
@@ -73,6 +71,8 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
                     Assert.isTrue(annotationMetadata.isInterface(), "@FeignClient can only be specified on an interface");
 
                     Map<String, Object> attributes = annotationMetadata.getAnnotationAttributes(FeignClient.class.getCanonicalName());
+                    String name = getClientName(attributes);
+                    registerClientConfiguration(registry, name, attributes.get("configuration"));
 
                     registerFeignClient(registry, annotationMetadata, attributes);
                 }
@@ -86,7 +86,8 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         validate(attributes);
         definition.addPropertyValue("url", getUrl(attributes));
         definition.addPropertyValue("path", getPath(attributes));
-        definition.addPropertyValue("name", className);
+        String name = getName(attributes);
+        definition.addPropertyValue("name", name);
         definition.addPropertyValue("type", className);
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
@@ -110,6 +111,38 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
             return this.environment.resolvePlaceholders(value);
         }
         return value;
+    }
+
+    private String getClientName(Map<String, Object> client) {
+        if (client == null) {
+            return null;
+        }
+        String value = (String) client.get("value");
+        if (!StringUtils.hasText(value)) {
+            value = (String) client.get("name");
+        }
+        if (StringUtils.hasText(value)) {
+            return value;
+        }
+
+        throw new IllegalStateException("Either 'name' or 'value' must be provided in @"
+                + FeignClient.class.getSimpleName());
+    }
+
+    String getName(Map<String, Object> attributes) {
+        String name = (String) attributes.get("name");
+        if (!StringUtils.hasText(name)) {
+            name = (String) attributes.get("value");
+        }
+        name = resolve(name);
+        return getName(name);
+    }
+
+    static String getName(String name) {
+        if (!StringUtils.hasText(name)) {
+            return "";
+        }
+        return name;
     }
 
     private String getUrl(Map<String, Object> attributes) {
@@ -193,12 +226,19 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         return basePackages;
     }
 
+    private void registerClientConfiguration(BeanDefinitionRegistry registry, Object name,
+                                             Object configuration) {
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder
+                .genericBeanDefinition(FeignClientSpecification.class);
+        builder.addConstructorArgValue(name);
+        builder.addConstructorArgValue(configuration);
+        registry.registerBeanDefinition(
+                name + "." + FeignClientSpecification.class.getSimpleName(),
+                builder.getBeanDefinition());
+    }
+
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
-
-
-
-
 }

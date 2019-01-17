@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import java.util.Map;
 
 /**
@@ -15,9 +14,9 @@ import java.util.Map;
  * @description:
  * @date: Created in 2019-01-08 09:54
  */
-@FeignClient(name = "articleClient", url = "http://127.0.0.1:8083")
-public interface ArticleClient {
-    Logger logger = LoggerFactory.getLogger(ArticleClient.class);
+@FeignClient(name = "articleClient", url = "http://127.0.0.1:8083", configuration = FeignConfig3.class)
+public interface ArticleClient3 {
+    Logger logger = LoggerFactory.getLogger(ArticleClient3.class);
 
     @GetMapping("/api/articles/{article_id}/comments")
     Map getComments(
