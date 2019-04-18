@@ -59,7 +59,7 @@ public class FeignClientsConfiguration {
 
     @Bean
     public Retryer feignRetryer() {
-        return Retryer.NEVER_RETRY;
+        return new Retryer.Default();
     }
 
     @Bean
