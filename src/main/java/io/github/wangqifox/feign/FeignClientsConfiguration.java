@@ -1,9 +1,6 @@
 package io.github.wangqifox.feign;
 
-import feign.Contract;
-import feign.Feign;
-import feign.Logger;
-import feign.Retryer;
+import feign.*;
 import io.github.wangqifox.feign.support.AnnotatedParameterProcessor;
 import io.github.wangqifox.feign.support.SpringMvcContract;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +56,7 @@ public class FeignClientsConfiguration {
 
     @Bean
     public Retryer feignRetryer() {
-        return new Retryer.Default();
+        return Retryer.NEVER_RETRY;
     }
 
     @Bean
