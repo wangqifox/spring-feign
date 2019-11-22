@@ -129,7 +129,7 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
                 + FeignClient.class.getSimpleName());
     }
 
-    String getName(Map<String, Object> attributes) {
+    private String getName(Map<String, Object> attributes) {
         String name = (String) attributes.get("name");
         if (!StringUtils.hasText(name)) {
             name = (String) attributes.get("value");
@@ -138,7 +138,7 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         return getName(name);
     }
 
-    static String getName(String name) {
+    private String getName(String name) {
         if (!StringUtils.hasText(name)) {
             return "";
         }
@@ -147,14 +147,15 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
 
     private String getUrl(Map<String, Object> attributes) {
         String url = resolve((String) attributes.get("url"));
-        if ("".equals(url)) {
-            url = environment.getProperty("comment.url");
-        }
         return getUrl(url);
     }
 
-    static String getUrl(String url) {
-        if (StringUtils.hasText(url) && !(url.startsWith("#{") && url.contains("}"))) {
+    private String getUrl(String url) {
+        if (url.startsWith("#{") && url.contains("}")) {
+            url = url.substring(2, url.length() - 1);
+            url = environment.getProperty(url);
+        }
+        if (StringUtils.hasText(url)) {
             if (!url.contains("://")) {
                 url = "http://" + url;
             }
@@ -173,7 +174,7 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
         return getPath(path);
     }
 
-    static String getPath(String path) {
+    private String getPath(String path) {
         if (StringUtils.hasText(path)) {
             path = path.trim();
             if (!path.startsWith("/")) {
