@@ -33,7 +33,7 @@ Feign([https://github.com/OpenFeign/feign](https://github.com/OpenFeign/feign))�
 
 3. 使用`@FeignClient`注释定义`feign`客户端：
 
-    ```
+    ```java
     @FeignClient(name = "client", url = "http://127.0.0.1:8080")
     public interface Client {
         @GetMapping("/1")
@@ -45,7 +45,7 @@ Feign([https://github.com/OpenFeign/feign](https://github.com/OpenFeign/feign))�
 
 4. 最后就可以在需要使用的地方注入`feign`客户端：
 
-    ```
+    ```java
     @Autowired
     Client client;
     ```
