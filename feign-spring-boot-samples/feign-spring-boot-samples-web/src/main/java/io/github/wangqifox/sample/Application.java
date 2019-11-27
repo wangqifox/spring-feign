@@ -16,5 +16,6 @@ public class Application {
         final ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
         final Client client = context.getBean(Client.class);
         System.out.println(client.get1());
+        System.out.println(client.get3("name"));
     }
 }

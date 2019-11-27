@@ -2,6 +2,7 @@ package io.github.wangqifox.sample;
 
 import io.github.wangqifox.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Description:
@@ -13,4 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface Client {
     @GetMapping("/1")
     String get1();
+
+    @GetMapping("/3")
+    String get3(@RequestParam("name") String name);
 }
