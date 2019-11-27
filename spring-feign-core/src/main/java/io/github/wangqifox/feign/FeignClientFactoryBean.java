@@ -4,8 +4,6 @@ import feign.*;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
-import feign.okhttp.OkHttpClient;
-import okhttp3.ConnectionPool;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author: wangqi
@@ -53,7 +50,7 @@ public class FeignClientFactoryBean implements FactoryBean<Object>, Initializing
         Feign.Builder builder = get(context, Feign.Builder.class)
                 // required values
                 .logger(logger)
-                .client(client())
+                .client(get(context, Client.class))
                 .encoder(get(context, Encoder.class))
                 .decoder(get(context, Decoder.class))
                 .contract(get(context, Contract.class));
@@ -61,15 +58,6 @@ public class FeignClientFactoryBean implements FactoryBean<Object>, Initializing
         configureFeign(context, builder);
 
         return builder;
-    }
-
-    Client client() {
-        ConnectionPool connectionPool = new ConnectionPool(500, 10, TimeUnit.SECONDS);
-        okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder()
-                .connectionPool(connectionPool)
-                .connectTimeout(60, TimeUnit.SECONDS);
-        okhttp3.OkHttpClient okHttpClient = builder.build();
-        return new OkHttpClient(okHttpClient);
     }
 
     protected void configureFeign(FeignContext context, Feign.Builder builder) {

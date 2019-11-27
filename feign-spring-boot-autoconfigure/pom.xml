@@ -22,6 +22,10 @@
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.github.wangqifox</groupId>
             <artifactId>spring-feign-core</artifactId>
             <version>3.0-SNAPSHOT</version>

@@ -3,11 +3,13 @@ package io.github.wangqifox.spring.boot.autoconfigure;
 import feign.*;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import feign.okhttp.OkHttpClient;
 import feign.optionals.OptionalDecoder;
 import io.github.wangqifox.feign.DefaultFeignLoggerFactory;
 import io.github.wangqifox.feign.FeignFormatterRegistrar;
 import io.github.wangqifox.feign.FeignLoggerFactory;
 import io.github.wangqifox.feign.support.*;
+import okhttp3.ConnectionPool;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,6 +23,7 @@ import org.springframework.format.support.FormattingConversionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: wangqi
@@ -85,5 +88,16 @@ public class FeignClientsConfiguration {
     @ConditionalOnMissingBean(FeignLoggerFactory.class)
     public FeignLoggerFactory feignLoggerFactory() {
         return new DefaultFeignLoggerFactory(logger);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Client client() {
+        ConnectionPool connectionPool = new ConnectionPool(500, 10, TimeUnit.SECONDS);
+        okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder()
+                .connectionPool(connectionPool)
+                .connectTimeout(60, TimeUnit.SECONDS);
+        okhttp3.OkHttpClient okHttpClient = builder.build();
+        return new OkHttpClient(okHttpClient);
     }
 }
