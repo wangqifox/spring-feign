@@ -37,7 +37,7 @@ public class SpringDecoder implements Decoder {
             throws IOException, FeignException {
         if (type instanceof Class || type instanceof ParameterizedType
                 || type instanceof WildcardType) {
-            @SuppressWarnings({ "unchecked", "rawtypes" })
+            @SuppressWarnings({"unchecked", "rawtypes"})
             HttpMessageConverterExtractor<?> extractor = new HttpMessageConverterExtractor(
                     type, this.messageConverters);
 
@@ -74,8 +74,7 @@ public class SpringDecoder implements Decoder {
         public void close() {
             try {
                 this.response.body().close();
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
                 // Ignore exception on close...
             }
         }

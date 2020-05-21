@@ -161,8 +161,7 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar,
             }
             try {
                 new URL(url);
-            }
-            catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 throw new IllegalArgumentException(url + " is malformed", e);
             }
         }

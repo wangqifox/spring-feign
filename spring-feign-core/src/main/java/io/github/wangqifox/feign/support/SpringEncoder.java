@@ -77,8 +77,7 @@ public class SpringEncoder implements Encoder {
                             log.debug("Writing [" + requestBody + "] as \""
                                     + requestContentType + "\" using ["
                                     + messageConverter + "]");
-                        }
-                        else {
+                        } else {
                             log.debug("Writing [" + requestBody + "] using ["
                                     + messageConverter + "]");
                         }
@@ -90,8 +89,7 @@ public class SpringEncoder implements Encoder {
                         @SuppressWarnings("unchecked")
                         HttpMessageConverter<Object> copy = (HttpMessageConverter<Object>) messageConverter;
                         copy.write(requestBody, requestContentType, outputMessage);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         throw new EncodeException("Error converting request body", ex);
                     }
                     // clear headers

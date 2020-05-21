@@ -14,7 +14,8 @@ public class FeignClientSpecification implements NamedContextFactory.Specificati
 
     private Class<?>[] configuration;
 
-    public FeignClientSpecification() {}
+    public FeignClientSpecification() {
+    }
 
     public FeignClientSpecification(String name, Class<?>[] configuration) {
         this.name = name;

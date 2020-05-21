@@ -98,7 +98,7 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 //                this.defaultConfigType);
         context.getEnvironment().getPropertySources().addFirst(new MapPropertySource(
                 this.propertySourceName,
-                Collections.<String, Object> singletonMap(this.propertyName, name)));
+                Collections.<String, Object>singletonMap(this.propertyName, name)));
         if (this.parent != null) {
             // Uses Environment from parent as well as beans
             context.setParent(this.parent);

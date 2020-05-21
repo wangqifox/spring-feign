@@ -70,8 +70,7 @@ public class SpringMvcContract extends Contract.BaseContract
         List<AnnotatedParameterProcessor> processors;
         if (!annotatedParameterProcessors.isEmpty()) {
             processors = new ArrayList<>(annotatedParameterProcessors);
-        }
-        else {
+        } else {
             processors = getDefaultAnnotatedArgumentsProcessors();
         }
         this.annotatedArgumentProcessors = toAnnotatedArgumentProcessorMap(processors);
@@ -140,7 +139,7 @@ public class SpringMvcContract extends Contract.BaseContract
         // HTTP Method
         RequestMethod[] methods = methodMapping.method();
         if (methods.length == 0) {
-            methods = new RequestMethod[] { RequestMethod.GET };
+            methods = new RequestMethod[]{RequestMethod.GET};
         }
         checkOne(method, methods, "method");
         data.template().method(methods[0].name());
